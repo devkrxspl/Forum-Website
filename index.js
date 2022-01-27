@@ -39,7 +39,7 @@ fs.readdirSync(`${root}/Pages`).forEach((filename) => {
 
 // Error handling
 app.use((error, req, res, next) => {
-  logHandler.log(error + " " + error.lineNumber);
+  logHandler.log(error);
 });
 
 logHandler.startLogging();
