@@ -1,4 +1,4 @@
-  // Constants
+   // Constants
 const express = require("express");
 const path = require("path");
 const http = require("http");
@@ -47,8 +47,13 @@ app.use((error, req, res, next) => {
   logHandler.log(error, "Error");
 });
 
+
+// Log initialization
 logHandler.clearLogs("Error");
+logHandler.clearLogs("Authentication");
+
 logHandler.startLogging("Error");
+logHandler.startLogging("Authentication");
 
 server.listen(3001);
 console.log();
