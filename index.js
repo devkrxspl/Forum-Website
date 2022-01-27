@@ -22,6 +22,7 @@ app.use(express.json());
 // Socket router
 io.on("connection", (socket) => {
 
+  // Iterating through each module and passing socket to them
   fs.readdirSync(`${root}/Socket`).forEach( (filename) => {
     require(`${root}/Socket/${filename}`).invoke(socket);
   });
@@ -35,6 +36,7 @@ app.get("/", (req, res) => {
 // Page routing
 fs.readdirSync(`${root}/Pages`).forEach( (filename) => {
 
+  // Iterating through each module and passing the request and response 
   app.all(`/${filename.split(".")[0]}`, urlencodedParser, (req, res) => {
     require(`${root}/Pages/${filename}`).invoke(req, res);
   });
@@ -45,6 +47,8 @@ app.use((error, req, res, next) => {
   logHandler.log(error, "Error");
 });
 
+logHandler.clearLogs("Error");
 logHandler.startLogging("Error");
+
 server.listen(3001);
 console.log();
