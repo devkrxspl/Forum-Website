@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(""));
 const logDir = `${root}/Logs`;
 
 // Variables
-var currentLog;
+var currentLogs = {};
 
 // Functions
 function getTimeStamp() {
@@ -17,20 +17,20 @@ function getTimeStamp() {
   return `${dateString.split(" ")[1]} ${dateString.split(" ")[2]} EST`;
 }
 
-function startLogging() {
+function startLogging(dir) {
 
   const d = new Date();
   const logName = d.toLocaleString('en-US', { timeZone: 'America/New_York' }).replace(/,/g, "").replace(/\//g, "\u2215");
 
-  fs.writeFileSync(`Logs/${logName}.txt`, `Log Started. (${getTimeStamp()})\n`);
+  fs.writeFileSync(`Logs/${dir}/${logName}.txt`, `Log Started. (${getTimeStamp()})\n`);
 
-  currentLog = logName;
+  currentLogs[dir] = logName;
 };
 
-function log(data) {
+function log(data, dir) {
 
-  if (currentLog) {
-    fs.appendFileSync(`Logs/${currentLog}.txt`, `${data} (${getTimeStamp()})\n`);
+  if (currentLogs[dir]) {
+    fs.appendFileSync(`Logs/${dir}/${currentLogs[dir]}.txt`, `${data} (${getTimeStamp()})\n`);
   }
 }
 

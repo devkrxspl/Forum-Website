@@ -21,6 +21,10 @@ app.use(express.json());
 
 // Socket router
 io.on("connection", (socket) => {
+
+  fs.readdirSync(`${root}/Socket`).forEach( (filename) => {
+    require(`${root}/Socket/${filename}`).invoke(socket);
+  });
 });
 
 // Main
@@ -29,19 +33,18 @@ app.get("/", (req, res) => {
 });
 
 // Page routing
-fs.readdirSync(`${root}/Pages`).forEach((filename) => {
-  const module = require(`${root}/Pages/${filename}`);
+fs.readdirSync(`${root}/Pages`).forEach( (filename) => {
 
   app.all(`/${filename.split(".")[0]}`, urlencodedParser, (req, res) => {
-    module.invoke(req, res);
+    require(`${root}/Pages/${filename}`).invoke(req, res);
   });
 });
 
 // Error handling
 app.use((error, req, res, next) => {
-  logHandler.log(error);
+  logHandler.log(error, "Error");
 });
 
-logHandler.startLogging();
+logHandler.startLogging("Error");
 server.listen(3001);
 console.log();
