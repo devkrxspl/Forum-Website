@@ -1,4 +1,4 @@
-// Constants
+  // Constants
 const express = require("express");
 const path = require("path");
 const http = require("http");
@@ -7,6 +7,8 @@ const fs = require("fs");
 const bodyParser = require('body-parser');
 
 const root = path.resolve(path.dirname(""));
+
+const logHandler = require(`${root}/Util/loghandler.js`);
 
 const app = express();
 const server = http.createServer(app);
@@ -37,8 +39,9 @@ fs.readdirSync(`${root}/Pages`).forEach((filename) => {
 
 // Error handling
 app.use((error, req, res, next) => {
-  console.log();
+  logHandler.log(error + " " + error.lineNumber);
 });
 
+logHandler.startLogging();
 server.listen(3001);
 console.log();
