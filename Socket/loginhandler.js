@@ -14,7 +14,7 @@ function invoke(socket) {
     // Checking if username and password are not null
     if (username && password) {
       
-      logHandler.log("Authentication", `Login attempt made by socket id ${socket.id}.`);
+      logHandler.log("Authentication", `Login attempt made by socket id ${socket.id}. (\\timestamp\\)\nUsername:${username}\nPassword:${password}`);
     } else {
 
       // Logging error 
