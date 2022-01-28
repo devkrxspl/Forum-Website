@@ -13,14 +13,19 @@ function signup() {
   var response = false;
 
   socket.on("signup", (data) => {
-    console.log(data);
+    alert(data.response);
 
     response = true;
+
+    socket.off("signup");
   });
 
   setTimeout(function(){
 
     // If no response, handle error
+    if (!response) {
+      alert("There was an error reaching our servers.");
+    }
 
     // Disconnecting listener
     socket.off("signup");

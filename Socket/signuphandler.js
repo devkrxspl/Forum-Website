@@ -35,15 +35,18 @@ function invoke(socket) {
 
           // Logging success
           logHandler.log("Authentication", `Signup attempt by user '${username}' successful. (\\timestamp\\)`);
+          socket.emit("signup", {"response" : `Signup attempt successful.`});
 
         } else {
           logHandler.log("Authentication", `Signup attempt failed; username '${username}' already exists. (\\timestamp\\)`);
+          socket.emit("signup", {"response" : `Signup attempt failed; username already exists.`});
         }
       })();
     } else {
 
       // Logging error 
       logHandler.log("Authentication", "Username or password not provided in signup attempt. (\\timestamp\\)");
+      socket.emit("signup", {"response" : "Username or password not provided in signup attempt."});
     }
   });
 }
