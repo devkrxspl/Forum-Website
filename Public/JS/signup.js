@@ -2,17 +2,17 @@
 const socket = io();
 
 // Functions
-function login() {
+function signup() {
   
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  socket.emit("login", {username : username, password : password});
+  socket.emit("signup", {username : username, password : password});
 
   // Waiting for response
   var response = false;
 
-  socket.on("login", (data) => {
+  socket.on("signup", (data) => {
     console.log(data);
 
     response = true;
@@ -23,6 +23,6 @@ function login() {
     // If no response, handle error
 
     // Disconnecting listener
-    socket.off("login");
+    socket.off("signup");
   }, 5000);
 }

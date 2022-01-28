@@ -36,7 +36,7 @@ function log(dir, data) {
 
   // If directory exists, add line to log
   if (currentLogs[dir]) {
-    fs.appendFileSync(`Logs/${dir}/${currentLogs[dir]}.txt`, `${data.replace("\\timestamp\\", getTimeStamp())}`);
+    fs.appendFileSync(`Logs/${dir}/${currentLogs[dir]}.txt`, `${data.replace("\\timestamp\\", getTimeStamp())}\n`);
   }
 }
 
