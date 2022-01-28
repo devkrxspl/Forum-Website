@@ -22,7 +22,7 @@ function signup() {
     socket.on("signup", (data) => {
       alert(data.response);
 
-      loggingIn = false;
+      signingUp = false;
       response = true;
       
       socket.off("signup");

@@ -10,6 +10,7 @@ function login() {
   if (!loggingIn) {
 
     loggingIn = true;
+    
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 

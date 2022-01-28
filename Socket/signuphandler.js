@@ -9,45 +9,58 @@ const DB = require(`${root}/Util/dbhandler.js`);
 
 const logindb = new DB("loginDB");
 
+// Variables
+var lastAccessed = {};
+
 // Functions
+function getMilliseconds() {
+  return (new Date()).getTime();
+}
+
 function invoke(socket) {
   socket.on("signup", (data) => {
 
-    const username = data.username;
-    const password = data.password;
+    // Ratelimit of 200ms
+    if (!lastAccessed[socket.id] || getMilliseconds() - lastAccessed[socket.id] >= 200) {
 
-    // Checking if username and password are not null
-    if (username && password) {
-      
-      logHandler.log("Authentication", `Signup attempt made using username '${username}'. (\\timestamp\\)`);
+      const username = data.username;
+      const password = data.password;
 
-      // DB needs async calls
-      (async () => {
+      // Checking if username and password are not null
+      if (username && password) {
+        
+        logHandler.log("Authentication", `Signup attempt made using username '${username}'. (\\timestamp\\)`);
 
-        if (!await logindb.contains(username)) {
+        // DB needs async calls
+        (async () => {
 
-          // Hashing password 
-          const salt = await bcrypt.genSalt();
-          const hash = await bcrypt.hash(password, salt);
+          if (!await logindb.contains(username)) {
 
-          // Storing credentials in database
-          await logindb.set(username, {password : hash, salt : salt});
+            // Hashing password 
+            const salt = await bcrypt.genSalt();
+            const hash = await bcrypt.hash(password, salt);
 
-          // Logging success
-          logHandler.log("Authentication", `Signup attempt by user '${username}' successful. (\\timestamp\\)`);
-          socket.emit("signup", {"response" : `Signup attempt successful.`});
+            // Storing credentials in database
+            await logindb.set(username, {password : hash, salt : salt});
 
-        } else {
-          logHandler.log("Authentication", `Signup attempt failed; username '${username}' already exists. (\\timestamp\\)`);
-          socket.emit("signup", {"response" : `Signup attempt failed; username already exists.`});
-        }
-      })();
-    } else {
+            // Logging success
+            logHandler.log("Authentication", `Signup attempt by user '${username}' successful. (\\timestamp\\)`);
+            socket.emit("signup", {"response" : `Signup attempt successful.`});
 
-      // Logging error 
-      logHandler.log("Authentication", "Username or password not provided in signup attempt. (\\timestamp\\)");
-      socket.emit("signup", {"response" : "Username or password not provided in signup attempt."});
+          } else {
+            logHandler.log("Authentication", `Signup attempt failed; username '${username}' already exists. (\\timestamp\\)`);
+            socket.emit("signup", {"response" : `Signup attempt failed; username already exists.`});
+          }
+        })();
+      } else {
+
+        // Logging error 
+        logHandler.log("Authentication", "Username or password not provided in signup attempt. (\\timestamp\\)");
+        socket.emit("signup", {"response" : "Username or password not provided in signup attempt."});
+      }
     }
+
+    lastAccessed[socket.id] = getMilliseconds();
   });
 }
 
