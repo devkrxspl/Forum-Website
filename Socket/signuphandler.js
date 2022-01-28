@@ -19,7 +19,7 @@ function invoke(socket) {
     // Checking if username and password are not null
     if (username && password) {
       
-      logHandler.log("Authentication", `Signup attempt made. (\\timestamp\\)\nUsername: ${username}\nPassword: ${password}`);
+      logHandler.log("Authentication", `Signup attempt made using username '${username}'. (\\timestamp\\)`);
 
       // DB needs async calls
       (async () => {
