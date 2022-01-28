@@ -1,33 +1,42 @@
 // Constants
 const socket = io();
 
+// Variables
+var loggingIn = false;
+
 // Functions
 function login() {
   
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  if (!loggingIn) {
 
-  socket.emit("login", {username : username, password : password});
+    loggingIn = true;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-  // Waiting for response
-  var response = false;
+    socket.emit("login", {username : username, password : password});
 
-  socket.on("login", (data) => {
-    alert(data.response);
+    // Waiting for response
+    var response = false;
 
-    response = true;
+    socket.on("login", (data) => {
+      alert(data.response);
 
-    socket.off("login");
-  });
+      loggingIn = false;
+      response = true;
 
-  setTimeout(function(){
+      socket.off("login");
+    });
 
-    // If no response, handle error
-    if (!response) {
-      alert("There was an error reaching our servers.");
-    }
+    setTimeout(function(){
 
-    // Disconnecting listener
-    socket.off("login");
-  }, 5000);
+      // If no response, handle error
+      if (!response) {
+        loggingIn = false;
+        alert("There was an error reaching our servers.");
+      }
+
+      // Disconnecting listener
+      socket.off("login");
+    }, 5000);
+  }
 }

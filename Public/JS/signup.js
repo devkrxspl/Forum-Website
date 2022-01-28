@@ -1,33 +1,43 @@
 // Constants
 const socket = io();
 
+// Variables
+var signingUp = false;
+
 // Functions
 function signup() {
   
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  if (!signingUp) {
 
-  socket.emit("signup", {username : username, password : password});
+    signingUp = true;
 
-  // Waiting for response
-  var response = false;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-  socket.on("signup", (data) => {
-    alert(data.response);
+    socket.emit("signup", {username : username, password : password});
 
-    response = true;
+    // Waiting for response
+    var response = false;
 
-    socket.off("signup");
-  });
+    socket.on("signup", (data) => {
+      alert(data.response);
 
-  setTimeout(function(){
+      loggingIn = false;
+      response = true;
+      
+      socket.off("signup");
+    });
 
-    // If no response, handle error
-    if (!response) {
-      alert("There was an error reaching our servers.");
-    }
+    setTimeout(function(){
 
-    // Disconnecting listener
-    socket.off("signup");
-  }, 5000);
+      // If no response, handle error
+      if (!response) {
+        signingUp = false;
+        alert("There was an error reaching our servers.");
+      }
+
+      // Disconnecting listener
+      socket.off("signup");
+    }, 5000);
+  }
 }
