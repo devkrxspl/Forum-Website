@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const root = path.resolve(path.dirname(""));
 
 const logHandler = require(`${root}/Util/loghandler.js`);
+const jwthandler = require(`${root}/Util/jwthandler.js`);
 const DB = require(`${root}/Util/dbhandler.js`);
 
 const logindb = new DB("loginDB");
@@ -41,22 +42,26 @@ function invoke(socket) {
             const hash = await bcrypt.hash(password, salt);
 
             // Storing credentials in database
-            await logindb.set(username, {password : hash, salt : salt});
+           // await logindb.set(username, {password : hash, salt : salt});
 
             // Logging success
             logHandler.log("Authentication", `Signup attempt by user '${username}' successful. (\\timestamp\\)`);
-            socket.emit("signup", {"response" : `Signup attempt successful.`});
 
+            // Sending back JWT
+            const jwt = await jwthandler.generateJWT(username);
+
+            socket.emit("signup", {response : "Signup successful.", jwt : jwt, error : 0});
+            
           } else {
             logHandler.log("Authentication", `Signup attempt failed; username '${username}' already exists. (\\timestamp\\)`);
-            socket.emit("signup", {"response" : `Signup attempt failed; username already exists.`});
+            socket.emit("signup", {response : `Signup attempt failed; username already exists.`, error : 1});
           }
         })();
       } else {
 
         // Logging error 
         logHandler.log("Authentication", "Username or password not provided in signup attempt. (\\timestamp\\)");
-        socket.emit("signup", {"response" : "Username or password not provided in signup attempt."});
+        socket.emit("signup", {response : "Username or password not provided in signup attempt.", error : 1});
       }
     }
 

@@ -20,7 +20,13 @@ function signup() {
     var response = false;
 
     socket.on("signup", (data) => {
-      alert(data.response);
+      
+      if (data.error == 0) {
+        console.log(data.jwt);
+        alert(data.response);
+      } else {
+        alert(data.response);
+      }
 
       signingUp = false;
       response = true;
