@@ -35,6 +35,8 @@ function invoke(socket) {
         // DB needs async calls
         (async () => {
 
+          
+
           if (!await logindb.contains(username)) {
 
             // Hashing password 

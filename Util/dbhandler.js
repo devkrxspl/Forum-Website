@@ -50,9 +50,10 @@ module.exports = class Database {
 
   async set(key, value) {
     
-    var data = db.get(this._name);
-    
+    var data = await db.get(this._name);
+
     data[key] = value;
+    
     db.set(this._name, data);
   }
 

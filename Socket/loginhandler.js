@@ -27,6 +27,7 @@ function invoke(socket) {
       const username = data.username;
       const password = data.password;
 
+    
       // Checking if username and password are not null
       if (username && password) {
         
@@ -34,6 +35,8 @@ function invoke(socket) {
 
         // DB needs async calls
         (async () => {
+
+          const a = await logindb.contains(username);
           
           // Checking if username exists
           if (await logindb.contains(username)) {
