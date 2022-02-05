@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const root = path.resolve(path.dirname(""));
 
 const logHandler = require(`${root}/Util/loghandler.js`);
+const jwthandler = require(`${root}/Util/jwthandler.js`);
 const DB = require(`${root}/Util/dbhandler.js`);
 
 const logindb = new DB("loginDB");
@@ -49,7 +50,7 @@ function invoke(socket) {
             if (userHashedPassword == hashedPassword) {
               
               logHandler.log("Authentication", `Login attempt by user '${username}' successful. (\\timestamp\\)`);
-              socket.emit("login", {"response" : "Login attempt successful.", error : 0});
+              socket.emit("login", {"response" : "Login attempt successful.", jwt : jwthandler.generateJWT(username)});
             } else {
 
               logHandler.log("Authentication", `Login attempt by user '${username}' unsuccessful. (Invalid password) (\\timestamp\\)`);
@@ -58,14 +59,14 @@ function invoke(socket) {
           } else {
             
             logHandler.log("Authentication", `Invalid username '${username}' provided during login. (\\timestamp\\)`);
-            socket.emit("login", {"response" : "Username does not exist.", error : 1});
+            socket.emit("login", {"response" : "Username does not exist.", error : 2});
           }
         })();
       } else {
 
         // Logging error 
         logHandler.log("Authentication", "Username or password not provided in login attempt. (\\timestamp\\)");
-        socket.emit("login", {"response" : "Username or password not provided in login attempt.", error : 1});
+        socket.emit("login", {"response" : "Username or password not provided in login attempt.", error : 3});
       }
     }
 

@@ -5,7 +5,7 @@ const socket = io();
 var signingUp = false;
 
 // Functions
-function signup() {
+async function signup() {
   
   if (!signingUp) {
 
@@ -14,36 +14,25 @@ function signup() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    socket.emit("signup", {username : username, password : password});
+    const response = await sendMessage("signup", {username : username, password : password}, 5000);
 
-    // Waiting for response
-    var response = false;
-
-    socket.on("signup", (data) => {
-      
-      if (data.error == 0) {
-        console.log(data.jwt);
-        alert(data.response);
-      } else {
-        alert(data.response);
-      }
+    if (!response.error) {
 
       signingUp = false;
-      response = true;
+      localStorage.jwt = response.jwt;
+      console.log("sdasdads");
+      window.location="https://Forum-Website.devkrxspl.repl.co";
+
       
-      socket.off("signup");
-    });
 
-    setTimeout(function(){
+    } else if (response.error == 5) {
+      
+      signingUp = false;
+      alert("There was an error reaching our servers.");
 
-      // If no response, handle error
-      if (!response) {
-        signingUp = false;
-        alert("There was an error reaching our servers.");
-      }
-
-      // Disconnecting listener
-      socket.off("signup");
-    }, 5000);
+    } else {
+      signingUp = false;
+      alert(response.response);
+    }
   }
 }

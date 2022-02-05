@@ -11,7 +11,7 @@ function stringToBase64(string) {
 }
 
 function base64toString(base64) {
-  console.log(Buffer.from(base64, 'base64').toString());
+  return Buffer.from(base64, 'base64').toString();
 }
 
 function encrypt(string, key) {

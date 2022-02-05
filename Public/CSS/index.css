@@ -1,0 +1,9 @@
+#welcomeMessage {
+  width: calc(100% - 10px);
+
+  position: relative;
+  top: 5px;
+  left: 5px;  
+
+  text-align: center;
+}

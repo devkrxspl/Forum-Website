@@ -42,7 +42,7 @@ function invoke(socket) {
             const hash = await bcrypt.hash(password, salt);
 
             // Storing credentials in database
-           // await logindb.set(username, {password : hash, salt : salt});
+            await logindb.set(username, {password : hash, salt : salt});
 
             // Logging success
             logHandler.log("Authentication", `Signup attempt by user '${username}' successful. (\\timestamp\\)`);
@@ -50,7 +50,7 @@ function invoke(socket) {
             // Sending back JWT
             const jwt = await jwthandler.generateJWT(username);
 
-            socket.emit("signup", {response : "Signup successful.", jwt : jwt, error : 0});
+            socket.emit("signup", {response : "Signup successful.", jwt : jwt});
             
           } else {
             logHandler.log("Authentication", `Signup attempt failed; username '${username}' already exists. (\\timestamp\\)`);

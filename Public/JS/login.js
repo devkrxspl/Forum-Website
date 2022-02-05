@@ -1,11 +1,11 @@
-// Constants
+ // Constants
 const socket = io();
 
 // Variables
 var loggingIn = false;
 
 // Functions
-function login() {
+async function login() {
   
   if (!loggingIn) {
 
@@ -14,30 +14,26 @@ function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    socket.emit("login", {username : username, password : password});
+    const response = await sendMessage("login", {username : username, password : password}, 5000);
 
-    // Waiting for response
-    var response = false;
-
-    socket.on("login", (data) => {
-      alert(data.response);
+    if (!response.error) {
 
       loggingIn = false;
-      response = true;
+      localStorage.jwt = response.jwt;
+      window.location="https://Forum-Website.devkrxspl.repl.co";
 
-      socket.off("login");
-    });
+    } else if (response.error == 5) {
+      
+      loggingIn = false;
+      alert("There was an error reaching our servers.");
 
-    setTimeout(function(){
-
-      // If no response, handle error
-      if (!response) {
-        loggingIn = false;
-        alert("There was an error reaching our servers.");
-      }
-
-      // Disconnecting listener
-      socket.off("login");
-    }, 5000);
+    } else {
+      loggingIn = false;
+      alert(response.response);
+    }
   }
+}
+
+if (localStorage.jwt) {
+  window.location = "https://Forum-Website.devkrxspl.repl.co";
 }
