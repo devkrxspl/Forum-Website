@@ -13,14 +13,19 @@ const logindb = new DB("loginDB");
 // Functions
 function invoke(socket) {
   socket.on("getUserInfo", (data) => {
-    var [header, payload, signature] = data.jwt.split(".");
+    
+    if (data.jwt && data.jwt.split(".").length == 3) {
+      var [header, payload, signature] = data.jwt.split(".");
 
-    if (jwthandler.verifyJWT(data.jwt)) {
+      if (jwthandler.verifyJWT(data.jwt)) {
 
-      payload = JSON.parse(jwthandler.base64toString(payload));
-      socket.emit("getUserInfo", {username : payload.username});
+        payload = JSON.parse(jwthandler.base64toString(payload));
+        socket.emit("getUserInfo", {username : payload.username});
+      } else {
+        socket.emit("getUserInfo", {response : "Invalid token.", error : 4});
+      }
     } else {
-      socket.emit("getUserInfo", {response : "Invalid token.", error : 4});
+      socket.emit("getUserInfo", {response : "Invalid Token.", error : 4});
     }
   });
 }
