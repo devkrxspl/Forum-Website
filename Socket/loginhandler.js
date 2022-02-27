@@ -20,7 +20,7 @@ function getMilliseconds() {
 
 function invoke(socket) {
   socket.on("login", (data) => {
-
+    
     // Ratelimit of 200ms
     if (!lastAccessed[socket.id] || getMilliseconds() - lastAccessed[socket.id] >= 200) {
 

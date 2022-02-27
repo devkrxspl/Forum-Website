@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Socket router
 io.on("connection", (socket) => {
-
+  
   // Iterating through each module and passing socket to them
   fs.readdirSync(`${root}/Socket`).forEach( (filename) => {
     require(`${root}/Socket/${filename}`).invoke(socket);

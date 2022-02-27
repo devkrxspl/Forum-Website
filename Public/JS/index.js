@@ -17,7 +17,6 @@ function logout() {
       document.getElementById("welcomeMessage").innerHTML = `Welcome, ${response.username}`;
     } else if (response.error == 4) {
 
-      alert("Invalid token provided.");
       delete localStorage.jwt;
       document.location = "https://Forum-Website.devkrxspl.repl.co";
     } else if (response.error == 5) {

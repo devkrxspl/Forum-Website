@@ -23,9 +23,11 @@ async function login() {
       window.location="https://Forum-Website.devkrxspl.repl.co";
 
     } else if (response.error == 5) {
-      
       loggingIn = false;
       alert("There was an error reaching our servers.");
+
+    } else if (response.error == 4) {
+      delete localStorage.jwt;
 
     } else {
       loggingIn = false;
