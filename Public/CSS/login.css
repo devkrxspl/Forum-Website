@@ -25,12 +25,12 @@ input {
   width: calc(90% - 12px);
   height: calc(35px - 22px);
 
-  color: #616161;
+  color: #808080;
 
   padding: 10px;
 
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 450;
   
   bold: true;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -83,9 +83,9 @@ input::placeholder {
   position: absolute;
 
   top: 170px;
-  left: 20%;
+  left: 15%;
 
-  width: 60%;
+  width: 70%;
   height: calc(100% - 50px);
 
 }
