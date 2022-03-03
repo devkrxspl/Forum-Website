@@ -23,7 +23,7 @@ input {
   background: #f2f2f2;
 
   width: calc(90% - 12px);
-  height: calc(35px - 22px);
+  height: calc(38px - 22px);
 
   color: #808080;
 
@@ -36,7 +36,7 @@ input {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   position: relative;
-  top: 15px;
+  top: 5px;
 }
 
 input:focus {
@@ -64,9 +64,9 @@ input::placeholder {
   position: absolute;
 
   top: calc(50% - 200px);
-  right: calc(50% - 240px);
+  right: calc(50% - 200px);
   
-  width: 480px;
+  width: 400px;
   height: 400px;
 
   background: white;
@@ -83,9 +83,9 @@ input::placeholder {
   position: absolute;
 
   top: 170px;
-  left: 15%;
+  left: 10%;
 
-  width: 70%;
+  width: 80%;
   height: calc(100% - 50px);
 
 }
@@ -94,15 +94,15 @@ input::placeholder {
   border: none;
 
   width: calc(90% + 8px);
-  height: 35px;
+  height: 38px;
 
   border-radius: 10px;
 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 600;
+  font-family: "GothamPro Medium", serif;
+  font-weight: 500;
 
   position: relative;
-  top: 15px;
+  top: 5px;
 
   transition-duration: 0.5s;
 

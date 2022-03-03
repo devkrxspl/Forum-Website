@@ -11,8 +11,43 @@
   </head>
   
   <body>
-    <div id="welcomeMessage"><p style="display: inline">This is a forum website.</p> <a href="/login">Login.</a></div>
+    
+    <div id="menu-bar-top">
+      <img id="logo" src="../Assets/logo.png">
+      <div id="menu-bar-top-left">
+        <input id="search" placeholder="Search" class="menu-bar-item" autocomplete="off">
+      </div>
+      <div id="menu-bar-top-right">
+        <button id="profile-button" class="menu-bar-item">
+          <img id="profile-button-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" ></img>
+        </button>
+      </div>
 
+      
+    </div>
+
+    <div id="menu-bar-left">
+      
+    </div>
+
+    <div id="menu-bar-right">
+      
+    </div>
+
+    <div id="post-container">
+      <div id="create-post">
+        +
+      </div>
+
+      <div class="post"></div>
+      <div class="post"></div>
+      <div class="post"></div>
+      <div class="post"></div>
+      <div class="post"></div>
+      <div class="post"></div>
+    </div>
+    
+    
     <script src="/socket.io/socket.io.js"></script>
     <script src="../JS/sockethandler.js"></script>
     <script src="../JS/index.js"></script>
