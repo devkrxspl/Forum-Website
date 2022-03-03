@@ -20,13 +20,24 @@ resize_events.forEach(function(e) {
     if (width < 1337) {
       document.getElementById("menu-bar-left").style.opacity = "0";
       document.getElementById("menu-bar-right").style.opacity = "0";
-  
       document.getElementById("post-container").style.right = "calc(50% - 350px)";
     } else {
       document.getElementById("menu-bar-left").style.opacity = "1";
       document.getElementById("menu-bar-right").style.opacity = "1";
-  
       document.getElementById("post-container").style.right = "max(80px + 300px, calc(50% - 350px))";
+    }
+
+    // Fading/sliding animations don't play when loading,
+    // only when a user physically resizes it
+    if (e == "onload") {
+
+      // Slight delay to wait for elements to adjust
+      setTimeout(function(){
+        
+        document.getElementById("menu-bar-left").style["transitionDuration"] = "0.5s";
+        document.getElementById("menu-bar-right").style["transitionDuration"] = "0.5s";
+        document.getElementById("post-container").style["transitionDuration"] = "0.5s";
+      }, 1);  
     }
   }
 });

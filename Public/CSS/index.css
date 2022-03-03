@@ -110,8 +110,6 @@ input:focus {
   background: white;
 
   display: flex;
-
-  transition-duration: 0.5s;
 }
 
 #menu-bar-right {
@@ -131,8 +129,6 @@ input:focus {
   background: white;
 
   display: flex;
-
-  transition-duration: 0.5s;
 }
 
 #menu-bar-top-right {
@@ -224,8 +220,6 @@ input:focus {
 
   width: 700px;
   height: calc(100% - 71px);
-
-  transition-duration: 0.5s;
 }
 
 #logo {
