@@ -7,15 +7,15 @@
     <meta property="og:title" content="Forum Website">
     <meta property="og:image" content="https://uxwing.com/wp-content/themes/uxwing/download/37-communication-chat-call/forum.png">
 
-    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/new.css">
   </head>
   
   <body>
     
     <div id="menu-bar-top">
       <img id="logo" src="../Assets/logo.png">
+      
       <div id="menu-bar-top-left">
-        <input id="search" placeholder="Search" class="menu-bar-item" autocomplete="off">
       </div>
       <div id="menu-bar-top-right">
         <button id="profile-button" class="menu-bar-item">
@@ -26,30 +26,15 @@
       
     </div>
 
-    <div id="menu-bar-left">
-      
-    </div>
-
-    <div id="menu-bar-right">
-      
-    </div>
-
-    <div id="feed-container">
-      <div id="create-post" onclick="createPost()">
-        +
-      </div>
-
-      <div class="post"></div>
-      <div class="post"></div>
-      <div class="post"></div>
-      <div class="post"></div>
-      <div class="post"></div>
-      <div class="post"></div>
-    </div>
-    
+    <div id="format-bar"></div>
+    <pre>
+      <div id="post-container" contenteditable="true"><p class="paragraph" contenteditable="true" tabindex="1"></p></div>
+    </pre>
     
     <script src="/socket.io/socket.io.js"></script>
     <script src="../JS/sockethandler.js"></script>
-    <script src="../JS/index.js"></script>
+    <script src="../JS/util.js"></script>
+    <script src="../JS/new.js"></script>
+    
   </body>
 </html>

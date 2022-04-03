@@ -12,6 +12,10 @@ function logout() {
   window.location = "";
 }
 
+function createPost() {
+  window.location = "/new";
+}
+
 // Main 
 resize_events.forEach(function(e) {
   window[e] = function(event) {
