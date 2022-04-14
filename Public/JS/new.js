@@ -55,6 +55,7 @@ document.getElementById("post-container").addEventListener("keydown", function(e
   
 });
 
+// Handling CTRL/CMD Z
 document.getElementById("post-container").addEventListener("keyup", function(e){
   
   // Caching current document
@@ -75,6 +76,14 @@ document.getElementById("post-container").addEventListener("keyup", function(e){
       }
     }
   }
+});
+
+// Handling copy and paste
+document.getElementById("post-container").addEventListener("paste", function(e) {
+
+    e.preventDefault();
+
+    document.execCommand("insertHTML", false, (e.originalEvent || e).clipboardData.getData('text/plain'));
 });
 
 (async () => {
