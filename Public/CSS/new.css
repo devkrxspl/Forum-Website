@@ -9,8 +9,24 @@
 }
 
 @font-face {
-  font-family: 'Sofia Pro';
-  src: url('../Assets/sofiapro-light.woff') format('woff');
+    font-family: 'Sofia Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Sofia Pro'), url('https://fonts.cdnfonts.com/s/14903/Sofia Pro Light Az.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Sofia Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Sofia Pro'), url('https://fonts.cdnfonts.com/s/14903/Sofia Pro Light Az.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Sofia Pro';
+    font-style: bold;
+    font-weight: 400;
+    src: local('Sofia Pro'), url('https://fonts.cdnfonts.com/s/14903/Sofia Pro Regular Az.woff') format('woff');
 }
 
 p {
@@ -20,6 +36,26 @@ p {
 body {
   background: rgb(255, 255, 255);
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  top: 70px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d1d1d1; 
+  border-radius: 2px;
+  transition-duration: 1s;
+}
+
+</sty
 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
@@ -94,12 +130,16 @@ pre {
 
 .paragraph {
 
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   min-height: 40px;
   width: 100%;
 
   outline: none;
   display: block;
+}
+
+.paragraph br {
+  display: none;
 }
 
 #search {
@@ -207,24 +247,24 @@ pre {
   top: 140px;
   right: calc(50% - 580px);
 
-  width: 900px;
-  min-height: calc(100% - 280px);
+  width: 960px;
+  min-height: calc(100% - 300px);
 
   background: #ffffff;
 
-  padding-top: 70px;
-  padding-bottom: 70px;
-  padding-left: 130px;
-  padding-right: 130px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  padding-left: 100px;
+  padding-right: 100px;
   outline: none;
 
-  border-style: solid solid none solid;
+  border-style: none solid none solid;
   border-width: 1px;
   border-color: rgb(235, 235, 235);
 
   color: #333333;
   font-family: Sofia Pro;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 17px;
 
   overflow-wrap: break-all;
@@ -235,29 +275,21 @@ pre {
 
 #format-bar {
 
-  position: absolute;
-  
+  z-index: 5;
+  position: fixed;
+
   top: 70px;
-  right: calc(50% - 580px);
+  left: calc(50% - 582px);
 
   width: 1160px;
   height: 70px;
 
-  background: #ffffff;
-
-  outline: none;
-
-  border-style: none solid none solid;
+  border-style: none solid solid solid;
   border-width: 1px;
   border-color: rgb(235, 235, 235);
 
-  color: #333333;
-  font-family: Sofia Pro;
-  font-weight: 400;
-  font-size: 17px;
-
-  overflow-wrap: break-all;
-  
+  background: white;
+  display: flex;
 }
 
 #logo {

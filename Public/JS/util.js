@@ -33,3 +33,16 @@ function pasteHtmlAtCaret(html) {
         document.selection.createRange().pasteHTML(html);
     }
 }
+
+function getCaretPosition (node) {
+    var range = window.getSelection().getRangeAt(0),
+        preCaretRange = range.cloneRange(),
+        caretPosition,
+        tmp = document.createElement("div");
+
+    preCaretRange.selectNodeContents(node);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+    tmp.appendChild(preCaretRange.cloneContents());
+    caretPosition = tmp.innerHTML.length;
+    return caretPosition;
+}
