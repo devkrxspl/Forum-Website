@@ -1,1 +1,1 @@
-A minimal forum website to test an implementation of JWT and secure password hashing
+A minimal forum website to test an implementation of JWTs, a rich text editor, and secure password hashing
