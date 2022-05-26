@@ -1,11 +1,12 @@
+
 // Constants 
-const socket = io();
 const documentHistory = [];
 const focusHistory = [];
 const caretHistory = [];
 
 // Variables
 var focusedParagraph = document.getElementsByClassName("paragraph")[0];
+var socket = io();
 
 // Functions
 function logout() {

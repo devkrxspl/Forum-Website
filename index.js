@@ -47,7 +47,6 @@ app.use((error, req, res, next) => {
   logHandler.log(error, "Error");
 });
 
-
 // Log initialization
 logHandler.clearLogs("Error");
 logHandler.clearLogs("Authentication");

@@ -55,9 +55,18 @@ function generateJWT(username) {
   return jwt;
 }
 
+// ONLY TO BE USED IF JWT IS VERIFIED
+function getPayload(jwt) {
+
+  const data = jwt.split(".");
+
+  return base64toString(data[1]);
+}
+
 module.exports.generateJWT = generateJWT;
 module.exports.verifyJWT = verifyJWT;
 module.exports.encrypt = encrypt;
 module.exports.decrypt = decrypt;
 module.exports.stringToBase64 = stringToBase64;
 module.exports.base64toString = base64toString
+module.exports.getPayload = getPayload;

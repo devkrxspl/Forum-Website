@@ -20,10 +20,7 @@ async function signup() {
 
       signingUp = false;
       localStorage.jwt = response.jwt;
-      console.log("sdasdads");
       window.location="https://Forum-Website.devkrxspl.repl.co";
-
-      
 
     } else if (response.error == 5) {
       
