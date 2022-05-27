@@ -5,7 +5,7 @@ const focusHistory = [];
 const caretHistory = [];
 
 // Variables
-var focusedParagraph = document.getElementsByClassName("paragraph")[0];
+var defaultParagraph = document.getElementsByClassName("paragraph")[0];
 var socket = io();
 
 // Functions
@@ -24,7 +24,7 @@ function getParent(node) {
 }
 
 document.getElementById("post-container").addEventListener("keydown", function(e){
-
+  
   if (e.key == 'Tab') {
     e.preventDefault();
     
@@ -34,9 +34,9 @@ document.getElementById("post-container").addEventListener("keydown", function(e
     const paragraphs = document.getElementsByClassName("paragraph");
 
     // Checking if the paragraph is empty (and therefore would be deleted on backspace)
-    if (paragraphs.length == 1 && (paragraphs[0].innerHTML == "<br>" || paragraphs[0].innerHTML == "<br><br>" || paragraphs[0].innerHTML == "")) {
+    if (paragraphs.length == 1 && paragraphs[0].innerHTML.replace(/<br>/g, "") == "") {
       e.preventDefault();
-    }
+    } 
 
   // Capturing CTRL + Z
   } else if (e.keyCode == 90 && (e.ctrlKey || e.metaKey)) {
@@ -54,9 +54,9 @@ document.getElementById("post-container").addEventListener("keydown", function(e
     document.getElementById("post-container").focus();
   }
   
-});
+}, true);
 
-// Handling CTRL/CMD Z
+// Caching previous document versions
 document.getElementById("post-container").addEventListener("keyup", function(e){
   
   // Caching current document
@@ -82,9 +82,16 @@ document.getElementById("post-container").addEventListener("keyup", function(e){
 // Handling copy and paste
 document.getElementById("post-container").addEventListener("paste", function(e) {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    document.execCommand("insertHTML", false, (e.originalEvent || e).clipboardData.getData('text/plain'));
+  const text = (e.originalEvent || e).clipboardData.getData('text/plain').split("\n");
+
+  var selection = window.getSelection();
+  var range = document.createRange();
+
+  for (var i = 0; i < text.length; i++) {
+    document.execCommand("insertHTML", false, text[i]);
+  }
 });
 
 (async () => {
