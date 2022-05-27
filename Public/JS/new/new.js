@@ -88,9 +88,23 @@ document.getElementById("post-container").addEventListener("paste", function(e) 
 
   var selection = window.getSelection();
   var range = document.createRange();
+  var current = getParent(selection.anchorNode);
 
   for (var i = 0; i < text.length; i++) {
-    document.execCommand("insertHTML", false, text[i]);
+    if (i == 0) {
+      document.execCommand("insertHTML", false, text[i]);
+    } else if (text[i].replace(/\n/g, "") != "") {
+      console.log(getParent(selection.anchorNode));
+
+      var element = document.createElement("div");
+  
+      element.innerHTML = text[i];
+      element.classList.add("paragraph");
+      element.contentEditable = true;
+  
+      current.parentNode.insertBefore(element, current.nextSibling);
+      current = element;
+    }
   }
 });
 
